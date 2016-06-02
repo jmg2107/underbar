@@ -311,14 +311,17 @@
 	return function(){
                 
 		var	current_args = Array.prototype.slice.call(arguments);
-		console.log(args);	
-		if(current_args in args){
-			console.log("saw arg " + current_args);
-			temp = args[current_args];
-                }
-		else{	console.log("new arg " + current_args);
+		var stringed_args = "";
+		if(arguments.length > 1){
+			stringed_args = "[" + current_args.toString() +  "]";
+		} else {
+			stringed_args = current_args.toString();
+		}
+		if(stringed_args in args){
+			temp = args[stringed_args];
+                } else {
                 	temp = func.apply(this, arguments);
-			args[current_args] = temp;
+			args[stringed_args] = temp;
 		}	
 		
 		return temp; 
